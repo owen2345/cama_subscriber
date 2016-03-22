@@ -1,0 +1,19 @@
+{
+  "title": "Cama Subscriber",
+  "descr": "",
+  "key": "cama_subscriber",
+  "helpers": [
+    "Plugins::CamaSubscriber::MainHelper"
+  ],
+  "hooks": {
+    "on_active": [
+      "cama_subscriber_on_active"
+    ],
+    "on_inactive": [
+      "cama_subscriber_on_inactive"
+    ],
+    "plugin_options": ["cama_subscriber_plugin_options"],
+    "admin_before_load": ["cama_subscriber_before_admin"]
+    //here you can add all your hooks (read documentation)
+  }
+}

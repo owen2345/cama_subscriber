@@ -1,0 +1,17 @@
+<%= form_for [:admin, @item], class: 'validate' do |f| %>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.groups.index.name') %></label><br>
+                <%= f.text_field :name, class: 'form-control required' %>
+            </div>
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.groups.index.key') %></label><br>
+                <%= f.text_field :key, class: 'form-control' %>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-primary" type="submit"><%= t('camaleon_cms.admin.button.submit') %></button>
+        </div>
+    </div>
+<% end %>

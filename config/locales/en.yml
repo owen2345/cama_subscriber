@@ -1,0 +1,5 @@
+en:
+  plugins:
+    cama_subscriber:
+      title: 'Newsletters'
+

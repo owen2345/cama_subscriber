@@ -1,0 +1,65 @@
+<% id = Time.current.to_i %>
+<%= form_for [:admin, @item], html:{class: 'validate', id: 'promotion_form' } do |f| %>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.promotions.index.name', default: "Name") %></label><br>
+                <%= f.text_field :name, class: 'form-control required' %>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.promotions.index.subject', default: 'Email Subject') %></label><br>
+                <%= f.text_field :subject, class: 'form-control required' %>
+            </div>
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.promotions.index.email_from', default: 'Email From') %></label><br>
+                <%= f.text_field :email_from, class: 'form-control' %>
+            </div>
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.promotions.index.email_cc', default: 'Email CC') %></label><br>
+                <%= f.text_field :email_cc, class: 'form-control' %>
+            </div>
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.promotions.index.groups_to_send', default: 'Groups where to send the campaign') %></label><br>
+                <% groups = @item.groups.pluck(:id); current_site.subscriber_groups.each do |g| %>
+                    <label><%= check_box_tag "groups[]", g.id, groups.include?(g.id) %> <%= g.name %></label><br>
+                <% end %>
+                <%= "<h4><label class='label label-danger'>#{t('plugins.cama_subscriber.required_groups', default: 'Please create groups where to send the campaign.')}</label></h4>".html_safe if current_site.subscriber_groups.count == 0 %>
+            </div>
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.promotions.index.content', default: 'Content') %></label><br>
+                <%= f.text_area :content, class: 'form-control required', id: id %>
+                <div class="list-group-item list-group-item-info">
+                    <%= t(".follow_code", default: 'Use the following codes:') %> <br>
+                    <small>
+                        <code>unsubscribe_url</code>: <%= t(".unsubscribe_url", default: 'Url to permit unsubscribe the subscriber from current groups') %><br>
+                        <code>unsubscribe_all_url</code>: <%= t(".unsubscribe_all_url", default: 'Url to permit unsubscribe the subscriber from all groups') %><br>
+                    </small>
+                </div>
+            </div>
+            <div>
+                <a href="#" onclick="$(this).closest('div').hide().next().removeClass('hidden'); return false;" class="btn box-default"><%= t('plugins.cama_subscriber.promotions.advanced', default: 'Advanced Options') %></a>
+            </div>
+            <div class="hidden">
+                <div class="form-group">
+                    <label><%= t('plugins.cama_subscriber.promotions.index.layout', default: 'Layout') %></label><br>
+                    <%= f.text_field :layout, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                    <label><%= t('plugins.cama_subscriber.promotions.index.template', default: 'Template') %></label><br>
+                    <%= f.text_field :template, class: 'form-control' %>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-footer text-right">
+            <button class="btn btn-primary" type="submit"><%= t('camaleon_cms.admin.button.submit') %></button>
+        </div>
+    </div>
+<% end %>
+<script>
+    jQuery(function(){
+        $("#promotion_form").validate();
+        $("#<%= id %>").tinymce(cama_get_tinymce_settings({height: 420}));
+    });
+</script>

@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group">
+            <label><%= t('plugins.cama_subscriber.items.index.email') %></label><br>
+            <span><%= @item.email %></span>
+        </div>
+        <div class="form-group">
+            <label><%= t('plugins.cama_subscriber.items.index.name') %></label><br>
+            <span><%= @item.name %></span>
+        </div>
+        <div class="form-group">
+            <label><%= t('plugins.cama_subscriber.items.index.status') %></label><br>
+            <span><%= t("plugins.cama_subscriber.items.status.#{@item.status}", default: @item.status) %></span>
+        </div>
+
+        <% if @item.options('custom_values').present? %>
+            <div class="form-group">
+                <label><%= t('.custom_values', default: 'Custom Values') %></label>
+                <% @item.options('custom_values').each do |k, v| %>
+                    <label><%= k %></label>: <%= v %> <br>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>

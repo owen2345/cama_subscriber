@@ -1,0 +1,111 @@
+es:
+  plugins:
+    cama_subscriber:
+      title: 'Boletín de Noticias'
+      settings: 'Ajustes'
+      required_groups: 'Por favor cree los grupos a quienes desea enviar la campaña'
+      front:
+        subscribe:
+          you_have_subscribed: 'Tu suscripción fue guardada correctamente'
+          please_confirm_email: 'Su suscripción esta pendiente, por favor confirme su suscripción desde su correo electrónico'
+          already_registered: 'Usted ya esta suscrito a este boletín de noticias'
+          email_required: 'Su correo es requerido para suscribirse a este Boletin de noticias'
+        unsubscribe:
+          you_have_unsubscribed: 'Tu suscripción fue cancelada correctamente'
+        unsubscribe_all:
+          you_have_unsubscribed: 'Tu suscripción fue cancelada correctamente'
+        verify:
+          success_confirm: 'Tu suscripción fué confirmado!'
+      admin:
+        save_settings:
+          saved_settings: 'Su configuración fué guardado correctamente'
+        settings:
+          title: 'Configuración de Boletín de Noticias'
+          needs_confirmation: 'Suscripciones necesitan confirmación?'
+          welcome_msg: 'Mensaje de bienvenida'
+          welcome_subject: 'Titulo del mensaje de bienvenida'
+      items:
+        title: 'Subscripciones'
+        status:
+          approved: 'Aprobado'
+          pending: 'Pendiente'
+          unsubscribed: 'Dado de baja'
+        index:
+          add_new: 'Agregar nuevo'
+          view: 'Ver detalles'
+          email: 'Correo Electrónico'
+          name: 'Nombre'
+          groups: 'Grupos'
+          status_accepted: 'Estado'
+          subscribed_at: 'Fecha de suscripción'
+          unsubscribed_at: 'Fecha de baja'
+        show:
+          custom_values: 'Valores Adicionales'
+        create:
+          saved: 'La subscripción fué guardado'
+        update:
+          updated: 'La subscripción fué actualizada'
+        destroy:
+          destroyed: 'La subscripción fué eliminada'
+
+      groups:
+        title: 'Grupos'
+        index:
+          add_new: 'Agregar nuevo'
+          view: 'Ver suscritos'
+          name: 'Nombre'
+          key: 'Código'
+          created_at: 'Fecha de creación'
+          subscribers: 'Suscritos'
+          result_code: 'Vista Previa'
+          preview_btn: 'Ver Ejemplo'
+        create:
+          saved: 'El grupo fué guardado'
+        update:
+          updated: 'El grupo fué actualizado'
+        destroy:
+          destroyed: 'El grupo fué eliminado'
+
+
+      promotions:
+        title: 'Campañas'
+        advanced: 'Configuración avanzada'
+        index:
+          add_new: 'Agregar nuevo'
+          view: 'Ver detalles'
+          email: 'Correo Electrónico'
+          name: 'Nombre'
+          datas: 'Datos'
+          layout: 'Diseño'
+          template: 'Plantilla'
+          email_from: 'Correo de Envío'
+          subject: 'Sujeto/Titulo de Correo'
+          email_cc: 'Coreo en copia'
+          content: 'Contenido'
+          created_at: 'Fecha de creación'
+          groups: 'Grupos'
+          groups_to_send: 'Grupos a quienes enviar la campaña'
+          status: 'Estado'
+          send_btn: 'Enviar Campaña'
+          confirm_send: 'Esta seguro de enviar esta campaña?'
+          send_test: 'Enviar prueba de campaña'
+          subscribers: 'Suscritos'
+          s:
+            pending: 'Pendiente'
+            sent: 'Enviado'
+        show:
+          custom_values: 'Valores Adicionales'
+        create:
+          saved: 'La subscripción fué guardado'
+        update:
+          updated: 'La subscripción fué actualizada'
+        destroy:
+          destroyed: 'La subscripción fué eliminada'
+        send_campaign:
+          success_send: 'El envió de la campaña a %{qty} suscritos se realizó con éxito'
+        send_test:
+          success_test_send: 'El envió de la campaña prueba se realizó con éxito'
+        form:
+          follow_code: 'Usa los siguientes códigos permitidos:'
+          unsubscribe_url: 'Url para abandonar la suscripción a los grupos de esta promoción'
+          unsubscribe_all_url: 'Url para abandonar la suscripción de todos los grupos suscritos'

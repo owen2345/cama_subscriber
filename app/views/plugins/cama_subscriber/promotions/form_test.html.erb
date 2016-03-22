@@ -1,0 +1,18 @@
+<%= form_tag url_for(action: :send_test, promotion_id: @promotion.id), class: 'validate', id: 'promotion_test_form' do |f| %>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label><%= t('plugins.cama_subscriber.promotions.email_test', default: "Test Email") %></label><br>
+                <%= text_field_tag "email", "", class: 'form-control required email' %>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-primary" type="submit"><%= t('camaleon_cms.admin.button.submit') %></button>
+        </div>
+    </div>
+<% end %>
+<script>
+    jQuery(function(){
+        $("#promotion_test_form").validate();
+    });
+</script>

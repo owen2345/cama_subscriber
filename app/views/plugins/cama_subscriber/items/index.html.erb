@@ -1,0 +1,52 @@
+<div class="panel panel-default" id="newsletter_table">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-6">
+                <h4><%= t('plugins.cama_subscriber.items.title') %> <%= ("(#{@group.name})" rescue "") %> </h4>
+            </div>
+            <div class="col-md-6 text-right">
+                <%= link_to("<i class='fa fa-plus'></i> #{t('.add_new', default: 'Add New')}".html_safe, url_for(action: :new), class: 'btn btn-primary ajax_link', title: t('.add_new', default: 'Add New')) %>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-responsive table-hover table-striped">
+            <thead>
+            <tr>
+                <th><%= t('.email', default: 'Email') %></th>
+                <th><%= t('.name', default: 'Name') %></th>
+                <th><%= t('.status_accepted', default: 'Status') %></th>
+                <th><%= t('.subscribed_at', default: 'Subscribed at') %></th>
+                <th><%= t('.unsubscribed_at', default: 'Unsubscribed at') %></th>
+                <th><%= t('.groups', default: 'Groups') %></th>
+                <th><%= t('camaleon_cms.admin.table.actions') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @items.each do |item| %>
+                <tr>
+                    <td><%= item.email %></td>
+                    <td><%= item.name %></td>
+                    <td><%= item.status %></td>
+                    <td><%= item.created_at %></td>
+                    <td><%= item.unsubscribed_at %></td>
+                    <td><%= item.groups.pluck(:name).join(', ') %></td>
+                    <td>
+                        <%= link_to raw('<i class="fa fa-pencil"></i>'), {action: :edit, id: item.id }, class: "btn btn-default btn-xs ajax_link", title: "#{t('camaleon_cms.admin.button.edit')}" %>
+                        <%= link_to raw('<i class="fa fa-eye"></i>'), {action: :show, id: item.id }, class: "btn btn-default btn-xs ajax_link", title: "#{t('.view')} - #{item.email}", default: "View #{item.email}" %>
+                        <%= link_to raw('<i class="fa fa-times"></i>'), { action: :destroy, id: item.id },method: :delete, data: { confirm: t('camaleon_cms.admin.message.delete_item') }, class: "btn btn-danger btn-xs", title: "#{t('camaleon_cms.admin.button.delete')}" %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+        <%= content_tag("div", raw(t('camaleon_cms.admin.message.data_found_list')), class: "alert alert-warning") if @items.empty? %>
+        <%= raw cama_do_pagination(@items) %>
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+    jQuery(function(){
+        var panel = $("#newsletter_table");
+        panel.find(".ajax_link").ajax_modal();
+    });
+</script>

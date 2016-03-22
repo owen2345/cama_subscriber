@@ -1,0 +1,123 @@
+<div class="panel panel-default" id="newsletter_table">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-6">
+                <h4><%= t('plugins.cama_subscriber.groups.title') %></h4>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#news_preview_group"><%= t('.preview_btn', default: 'Sample Form') %></button>
+                <%= link_to("<i class='fa fa-plus'></i> #{t('.add_new', default: 'Add New')}".html_safe, url_for(action: :new), class: 'btn btn-primary ajax_link', title: t('.add_new', default: 'Add New')) %>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-responsive table-hover table-striped">
+            <thead>
+            <tr>
+                <th><%= t('.id', default: 'ID') %></th>
+                <th><%= t('.name', default: 'Name') %></th>
+                <th><%= t('.key', default: 'Key') %></th>
+                <th><%= t('.subscribers', default: 'Subscribers') %></th>
+                <th><%= t('.created_at', default: 'Created at') %></th>
+                <th><%= t('camaleon_cms.admin.table.actions') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @items.each do |item| %>
+                <tr>
+                    <td><%= item.id %></td>
+                    <td><%= item.name %></td>
+                    <td><%= item.key %></td>
+                    <td><%= item.items.count %></td>
+                    <td><%= item.created_at %></td>
+                    <td>
+                        <%= link_to raw('<i class="fa fa-pencil"></i>'), {action: :edit, id: item.id }, class: "btn btn-default btn-xs ajax_link", title: "#{t('camaleon_cms.admin.button.edit')}" %>
+                        <%= link_to raw('<i class="fa fa-eye"></i>'), admin_plugins_cama_subscriber_items_path(group: item.id), class: "btn btn-default btn-xs", title: t('.view', default: 'View subscribers') %>
+                        <%= link_to raw('<i class="fa fa-times"></i>'), { action: :destroy, id: item.id },method: :delete, data: { confirm: t('camaleon_cms.admin.message.delete_item') }, class: "btn btn-danger btn-xs", title: "#{t('camaleon_cms.admin.button.delete')}" %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+        <%= content_tag("div", raw(t('camaleon_cms.admin.message.data_found_list')), class: "alert alert-warning") if @items.empty? %>
+        <%= raw cama_do_pagination(@items) %>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="news_preview_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <small>
+                    <code>
+                        &lt;%= form_tag(plugins_cama_subscriber_subscribe_url) do %&gt; <br>
+                        &nbsp; &nbsp;&lt;input type='hidden' name="group_id" value='1' &gt; &lt;!--Group ID--&gt; <br>
+                        &nbsp; &nbsp;&lt;div class="form-group"&gt; &lt;!-- optional --&gt; <br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;label&gt;Name:&lt;/label&gt;&lt;br&gt; <br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;input name="name" class="form-control"&gt; <br>
+                        &nbsp; &nbsp;&lt;/div&gt; <br>
+
+                        &nbsp; &nbsp;&lt;div class="form-group"&gt; <br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;label&gt;Email:&lt;/label&gt;&lt;br&gt; <br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;input name="email" class="form-control"&gt; <br>
+                        &nbsp; &nbsp;&lt;/div&gt; <br>
+                        <br>
+                        &nbsp; &nbsp;&lt;!--Unlimited of Extra Values--&gt;<br>
+                        &nbsp; &nbsp;&lt;div class="form-group"&gt;<br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;label&gt;Company:&lt;/label&gt;&lt;br&gt;<br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;input name="extra_values[company]" class="form-control"&gt;<br>
+                        &nbsp; &nbsp;&lt;/div&gt;<br>
+                        &nbsp; &nbsp;&lt;div class="form-group"&gt;<br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;label&gt;Country:&lt;/label&gt;&lt;br&gt;<br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;input name="extra_values[country]" class="form-control"&gt;<br>
+                        &nbsp; &nbsp;&lt;/div&gt;<br>
+                        <br>
+                        &nbsp; &nbsp;&lt;div class="text-right"&gt;<br>
+                        &nbsp; &nbsp;&nbsp; &nbsp;&lt;button type="submit" class="btn btn-primary"&gt;Subscribe&lt;/button&gt;<br>
+                        &nbsp; &nbsp;&lt;/div&gt;<br>
+                        &lt;% end %&gt;<br>
+                    </code>
+                </small>
+                <hr>
+                <h4><%= t('.result_code', default: 'Preview') %></h4>
+                <%= form_tag(plugins_cama_subscriber_subscribe_url) do %>
+                    <input type="hidden" name="group_id" value="1">
+                    <div class="form-group"> <!-- optional -->
+                        <label>Name:</label><br>
+                        <input name="name" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email:</label><br>
+                        <input name="email" class="form-control">
+                    </div>
+
+                    <!--Unlimited of Extra Values-->
+                    <div class="form-group">
+                        <label>Company:</label><br>
+                        <input name="extra_values[company]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Country:</label><br>
+                        <input name="extra_values[country]" class="form-control">
+                    </div>
+
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </div>
+                <% end %>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript" charset="utf-8">
+    jQuery(function(){
+        var panel = $("#newsletter_table");
+        panel.find(".ajax_link").ajax_modal();
+    });
+</script>
