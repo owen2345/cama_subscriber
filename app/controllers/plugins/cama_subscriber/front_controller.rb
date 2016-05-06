@@ -9,6 +9,8 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
     end
 
     group = params[:group_id].present? ? current_site.subscriber_groups.find(params[:group_id]) : current_site.subscriber_groups.first
+    group = current_site.subscriber_groups.create!(name: 'Default Group', key: 'default_group') unless group.present?
+
     if group.items.where(email: params[:email]).present?
       error << t(".already_registered", default: 'You have already subscribed to this newsletter')
     end
