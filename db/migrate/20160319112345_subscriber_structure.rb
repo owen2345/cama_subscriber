@@ -34,7 +34,7 @@ class SubscriberStructure < ActiveRecord::Migration
       t.string :subject
       t.text :content
 
-      t.text :status, default: 'pending' # pending / sent
+      t.string :status, default: 'pending' # pending / sent
 
       t.belongs_to :site, index: true
       t.timestamps
