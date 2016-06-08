@@ -13,3 +13,32 @@ rake db:migrate
 ```
 - Navigate to admin -> plugins and install plugin "Cama Subscriber"
 - Go to admin -> subscriptions
+
+## Sample Form
+```
+<%= form_tag(plugins_cama_subscriber_subscribe_url) do %>
+   <input type='hidden' name="group_id" value='1' > <!--Group ID (optional, by default first)-->
+   <div class="form-group"> <!-- optional -->
+      <label>Name:</label><br>
+      <input name="name" class="form-control">
+   </div>
+   <div class="form-group">
+      <label>Email:</label><br>
+      <input name="email" class="form-control">
+   </div>
+
+   <!--Unlimited of Extra Values-->
+   <div class="form-group">
+      <label>Company:</label><br>
+      <input name="extra_values[company]" class="form-control">
+   </div>
+   <div class="form-group">
+      <label>Country:</label><br>
+      <input name="extra_values[country]" class="form-control">
+   </div>
+
+   <div class="text-right">
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+   </div>
+<% end %>
+```
