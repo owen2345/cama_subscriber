@@ -24,6 +24,7 @@ es:
           needs_confirmation: 'Suscripciones necesitan confirmación?'
           welcome_msg: 'Mensaje de bienvenida'
           welcome_subject: 'Titulo del mensaje de bienvenida'
+          settings: 'Configurariones'
       items:
         title: 'Subscripciones'
         status:

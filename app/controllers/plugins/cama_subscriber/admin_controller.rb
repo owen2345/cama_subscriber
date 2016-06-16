@@ -2,7 +2,7 @@ class Plugins::CamaSubscriber::AdminController < CamaleonCms::Apps::PluginsAdmin
   include Plugins::CamaSubscriber::MainHelper
   add_breadcrumb(I18n.t("plugins.cama_subscriber.title"), default: 'Newsletters')
   def settings
-    add_breadcrumb(t("plugins.cama_subscriber.settings"))
+    add_breadcrumb(t(".settings", default: 'Settings'))
   end
 
   def save_settings
