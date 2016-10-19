@@ -17,7 +17,7 @@ rake db:migrate
 ## Sample Form
 ```
 <%= form_tag(plugins_cama_subscriber_subscribe_url) do %>
-   <input type='hidden' name="group_id" value='1' > <!--Group ID (optional, by default first)-->
+   <!--<input type='hidden' name="group_id" value='1' >--> <!--Group ID (optional, by default first)-->
    <div class="form-group"> <!-- optional -->
       <label>Name:</label><br>
       <input name="name" class="form-control">
