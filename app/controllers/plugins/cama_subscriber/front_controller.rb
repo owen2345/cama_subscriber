@@ -1,5 +1,6 @@
 class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFrontController
   include Plugins::CamaSubscriber::MainHelper
+  before_action :init_flash
 
   def subscribe
     msg = nil
@@ -17,7 +18,7 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
 
     if error.present?
       respond_to do |format|
-        format.html { flash[:error] = error.join("<br>"); redirect_to cama_root_url }
+        format.html { flash[:cama_subscriber][:error] = error.join("<br>"); redirect_to cama_root_url }
         format.json{ render json: {message: error.join("<br>"), error: true} }
       end
       return
@@ -38,7 +39,7 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
     group.item_groups.create(item_id: item.id)
     msg = msg || t('.you_have_subscribed', default: 'You have been subscribed successfully')
     respond_to do |format|
-      format.html { flash[:notice] = msg;  redirect_to cama_root_url }
+      format.html { flash[:cama_subscriber][:notice] = msg;  redirect_to cama_root_url }
       format.json{ render json: {message: msg, error: false} }
     end
   end
@@ -47,7 +48,7 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
   def verify
     xxx, xx, id_item  = Base64.decode64(params[:key]).split('/')
     current_site.subscriber_items.find(id_item).update(status: 'approved')
-    flash[:notice] = t(".success_confirm", default: 'Your subscription was successfully confirmed.')
+    flash[:cama_subscriber][:notice] = t(".success_confirm", default: 'Your subscription was successfully confirmed.')
     redirect_to cama_root_url
   end
 
@@ -75,7 +76,7 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
     rescue
     end
 
-    flash[:notice] = t('.you_have_unsubscribed', default: 'You have been unsubscribed successfully')
+    flash[:cama_subscriber][:notice] = t('.you_have_unsubscribed', default: 'You have been unsubscribed successfully')
     redirect_to cama_root_url
   end
 
@@ -90,9 +91,11 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
     rescue
     end
 
-    flash[:notice] = t('.you_have_unsubscribed', default: 'You have been unsubscribed successfully')
+    flash[:cama_subscriber][:notice] = t('.you_have_unsubscribed', default: 'You have been unsubscribed successfully')
     redirect_to cama_root_url
   end
 
-  # add custom methods below
+  def init_flash
+    flash[:cama_subscriber] = {}
+  end
 end

@@ -55,6 +55,7 @@
                 <small>
                     <code>
                         &lt;%= form_tag(plugins_cama_subscriber_subscribe_url) do %&gt; <br>
+                            &lt;%= render partial: "/camaleon_cms/flash_messages.html.erb", locals:{ flash: flash[:cama_subscriber] } %> <br>
                         &nbsp; &nbsp;&lt;input type='hidden' name="group_id" value='1' &gt; &lt;!--Group ID--&gt; <br>
                         &nbsp; &nbsp;&lt;div class="form-group"&gt; &lt;!-- optional --&gt; <br>
                         &nbsp; &nbsp;&nbsp; &nbsp;&lt;label&gt;Name:&lt;/label&gt;&lt;br&gt; <br>
