@@ -17,7 +17,7 @@ rake db:migrate
 ## Sample Form
 ```
 <%= form_tag(plugins_cama_subscriber_subscribe_url) do %>
-   <%= render partial: "/camaleon_cms/flash_messages.html.erb", locals:{ flash: flash[:cama_subscriber] } %>
+   <%= render partial: "/camaleon_cms/flash_messages.html.erb", locals:{ flash: (flash[:cama_subscriber] || {}).with_indifferent_access } %>
    <!--<input type='hidden' name="group_id" value='1' >--> <!--Group ID (optional, by default first)-->
    <div class="form-group"> <!-- optional -->
       <label>Name:</label><br>
