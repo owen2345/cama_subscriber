@@ -1,4 +1,4 @@
-class SubscriberStructure < ActiveRecord::Migration
+class SubscriberStructure < ActiveRecord::Migration[5.0]
   def change
     create_table :plugins_subscriber_groups do |t|
       t.string :name
