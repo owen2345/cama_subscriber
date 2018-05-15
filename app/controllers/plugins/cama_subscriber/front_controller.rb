@@ -5,8 +5,9 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
   def subscribe
     msg = nil
     error = []
+    stat = 'success'
     unless params[:email].present?
-      error = t(".email_required", default: 'Your email is required to subscribe for this newsletter')
+      error << t(".email_required", default: 'Your email is required to subscribe for this newsletter')
     end
 
     group = params[:group_id].present? ? current_site.subscriber_groups.find(params[:group_id]) : current_site.subscriber_groups.first
@@ -17,9 +18,10 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
     end
 
     if error.present?
+      res = {errors: error, redirect: cama_root_url, status: stat}; hooks_run('cama_subscriber_error_subscription', res)
       respond_to do |format|
-        format.html { flash[:cama_subscriber][:error] = error.join("<br>"); redirect_to cama_root_url }
-        format.json{ render json: {message: error.join("<br>"), error: true} }
+        format.html { flash[:cama_subscriber][:error] = res[:errors].join("<br>"); redirect_to res[:redirect] }
+        format.json{ render json: {message: res[:errors].join("<br>"), error: true} }
       end
       return
     end
@@ -33,14 +35,18 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
       if @plugin.get_option('needs_confirmation') == 1
         cama_send_email(params[:email], @plugin.get_option('welcome_subject'), {content: @plugin.get_option('welcome_msg') + "<a href='#{plugins_cama_subscriber_verify_url(key: '')}'></a>"})
         msg = t(".please_confirm_email", default: 'Your subscription is pending, please confirm your subscription from your email')
+        stat = 'pending_confirmation'
       end
     end
 
     group.item_groups.create(item_id: item.id)
     msg = msg || t('.you_have_subscribed', default: 'You have been subscribed successfully')
+    
+    res = {msg: msg, redirect: cama_root_url, status: stat}; hooks_run('cama_subscriber_after_subscription', res)
+    
     respond_to do |format|
-      format.html { flash[:cama_subscriber][:notice] = msg;  redirect_to cama_root_url }
-      format.json{ render json: {message: msg, error: false} }
+      format.html { flash[:cama_subscriber][:notice] = res[:msg];  redirect_to res[:redirect] }
+      format.json{ render json: {message: res[:msg], error: false} }
     end
   end
 
