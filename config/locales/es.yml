@@ -10,6 +10,7 @@ es:
           please_confirm_email: 'Su suscripción esta pendiente, por favor confirme su suscripción desde su correo electrónico'
           already_registered: 'Usted ya esta suscrito a este boletín de noticias'
           email_required: 'Su correo es requerido para suscribirse a este Boletin de noticias'
+          approve: 'Haga clic aquí para confirmar el registro'
         unsubscribe:
           you_have_unsubscribed: 'Tu suscripción fue cancelada correctamente'
         unsubscribe_all:

@@ -33,7 +33,13 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
       item.save!
       item.extra_values(params[:extra_values]) if params[:extra_values].present?
       if @plugin.get_option('needs_confirmation') == 1
-        cama_send_email(params[:email], @plugin.get_option('welcome_subject'), {content: @plugin.get_option('welcome_msg') + "<a href='#{plugins_cama_subscriber_verify_url(key: '')}'></a>"})
+        key = _signWithKey(item.id)
+        cama_send_email(params[:email],
+                        @plugin.get_option('welcome_subject'),
+                        {content: @plugin.get_option('welcome_msg') +
+                            "<a href='#{plugins_cama_subscriber_verify_url(key: key)}'>" +
+                            t(".approve", default: 'Click here to confirm your subscription') +
+                            "</a>"})
         msg = t(".please_confirm_email", default: 'Your subscription is pending, please confirm your subscription from your email')
         stat = 'pending_confirmation'
       end
@@ -52,9 +58,11 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
 
   # confirm subscriber
   def verify
-    xxx, xx, id_item  = Base64.decode64(params[:key]).split('/')
-    current_site.subscriber_items.find(id_item).update(status: 'approved')
-    flash[:cama_subscriber][:notice] = t(".success_confirm", default: 'Your subscription was successfully confirmed.')
+    id_item = _verifyWithKey(params[:key])
+    if id_item
+      current_site.subscriber_items.find(id_item).update(status: 'approved')
+      flash[:cama_subscriber][:notice] = t(".success_confirm", default: 'Your subscription was successfully confirmed.')
+    end
     redirect_to cama_root_url
   end
 
@@ -62,8 +70,8 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-
-    promotion_id, sent_promo_id  = Base64.decode64(params[:key]).split('/')
+    lookupKey = _verifyWithKey(params[:key])
+    promotion_id, sent_promo_id  = Base64.decode64(lookupKey).split('/')
     begin
       promotion = current_site.subscriber_promotions.find(promotion_id)
       promotion.sent_promo_items.find(sent_promo_id).increment!
@@ -75,7 +83,8 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
   # unsubscribe from promotion
   def unsubscribe
     begin
-      promotion_id, sent_promo_id  = Base64.decode64(params[:key]).split('/')
+      lookupKey = _verifyWithKey(params[:key])
+      promotion_id, sent_promo_id  = Base64.decode64(lookupKey).split('/')
       promotion = current_site.subscriber_promotions.find(promotion_id)
       item = promotion.sent_promo_items.find(sent_promo_id).item
       item.item_groups.where(group_id: promotion.groups.pluck(:id)).destroy_all
@@ -89,7 +98,8 @@ class Plugins::CamaSubscriber::FrontController < CamaleonCms::Apps::PluginsFront
   # unsubscribe from all
   def unsubscribe_all
     begin
-      promotion_id, sent_promo_id  = Base64.decode64(params[:key]).split('/')
+      lookupKey = _verifyWithKey(params[:key])
+      promotion_id, sent_promo_id  = Base64.decode64(lookupKey).split('/')
       promotion = current_site.subscriber_promotions.find(promotion_id)
       item = promotion.sent_promo_items.find(sent_promo_id).item
       item.unsubscribe!

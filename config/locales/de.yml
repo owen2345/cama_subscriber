@@ -1,0 +1,113 @@
+de:
+  plugins:
+    cama_subscriber:
+      title: 'Newsletter'
+      settings: 'Einstellungen'
+      required_groups: 'Erstellen Sie die Gruppen, an die Sie die Kampagne senden möchten'
+      front:
+        subscribe:
+          you_have_subscribed: 'Sie sind nun zu dem Newsletter angemeldet'
+          please_confirm_email: 'Bitte bestätigen Sie Ihre Anmeldung in der Email'
+          already_registered: 'Sie sind bereits für den Newsletter angemeldet'
+          email_required: 'Zur Anmeldung ist eine Emailadresse notwendig'
+          approve: 'Klicken Sie hier, um die Anmeldung zu bestätigen'
+        unsubscribe:
+          you_have_unsubscribed: 'Sie wurden von dem Newsletter abgemeldet'
+        unsubscribe_all:
+          you_have_unsubscribed: 'Sie wurden von dem Newsletter abgemeldet'
+        verify:
+          success_confirm: 'Ihre Anmeldung wurde bestätigt'
+      admin:
+        save_settings:
+          saved_settings: 'Die Einstellungen wurden gespeichert'
+        settings:
+          title: 'Einstellungen Newsletter'
+          needs_confirmation: 'Soll eine Bestätigungsmail versendet werden?'
+          welcome_msg: 'Willkommensnachricht'
+          welcome_subject: 'Betreff der Willkommensnachricht'
+          settings: 'Einstellungen'
+      items:
+        title: 'Abonnements'
+        status:
+          approved: 'Bestätigt'
+          pending: 'Wartend'
+          unsubscribed: 'Abbestellt'
+        index:
+          add_new: 'Neuer Eintrag'
+          view: 'Ansicht'
+          email: 'Email'
+          name: 'Name'
+          groups: 'Gruppen'
+          status_accepted: 'Status'
+          subscribed_at: 'Angemeldet an'
+          unsubscribed_at: 'Abgemeldet an'
+        show:
+          custom_values: 'Zusätzliche Felder'
+        create:
+          saved: 'Eintrag gespeichert'
+        update:
+          updated: 'Eintrag aktualisiert'
+        destroy:
+          destroyed: 'Eintrag gelöscht'
+
+      groups:
+        title: 'Gruppen'
+        index:
+          add_new: 'Neue Gruppe'
+          view: 'Anzeigen'
+          name: 'Name'
+          key: 'Schlüssel'
+          created_at: 'Erstellt am'
+          subscribers: 'Empfänger'
+          result_code: 'Vorschau'
+          preview_btn: 'Siehe Beispiel'
+        create:
+          saved: 'Gruppe gespeichert'
+        update:
+          updated: 'Gruppe aktualisiert'
+        destroy:
+          destroyed: 'Gruppe gelöscht'
+
+
+      promotions:
+        title: 'Kampagnen'
+        advanced: 'Erweiterte Konfiguration'
+        index:
+          add_new: 'Neu'
+          view: 'Details'
+          email: 'Email'
+          name: 'Name'
+          datas: 'Daten'
+          layout: 'Layout'
+          template: 'Vorlage'
+          email_from: 'Absendeadresse'
+          subject: 'Betreff'
+          email_cc: 'CC:'
+          content: 'Inhalt'
+          created_at: 'Erzeugt am'
+          groups: 'Gruppen'
+          groups_to_send: 'Empfängergruppen'
+          status: 'Status'
+          send_btn: 'Kampagne senden'
+          confirm_send: 'Sollen die Emails dieser Kampagne gesendet werden?'
+          send_test: 'Testmail senden'
+          subscribers: 'Abonnenten'
+          s:
+            pending: 'Wartend'
+            sent: 'Gesendet'
+        show:
+          custom_values: 'Zusätzliche Felder'
+        create:
+          saved: 'Das Abonnement wurde gespeichert'
+        update:
+          updated: 'Das Abonnement wurde aktualisiert'
+        destroy:
+          destroyed: 'Das Abonnement wurde gelöscht'
+        send_campaign:
+          success_send: 'Das Senden der Kampagne an %{qty} Abonnenten war erfolgreich'
+        send_test:
+          success_test_send: 'Der Versand der Tesmmail war erfolgreich'
+        form:
+          follow_code: 'Verwenden Sie die folgenden zulässigen Codes:'
+          unsubscribe_url: 'Url, um das Abonnement für die Gruppen dieser Aktion zu beenden'
+          unsubscribe_all_url: 'URL, um das Abonnement aller abonnierten Gruppen zu beenden'
