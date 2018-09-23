@@ -46,7 +46,7 @@ class Plugins::CamaSubscriber::PromotionsController < Plugins::CamaSubscriber::A
       i = 0
       promotion.items.active.uniq.each do |item|
         sent_promo = promotion.sent_promo_items.create(item_id: item.id)
-        key = Base64.encode64("#{promotion.id}/#{sent_promo.id}")
+        key = _signWithKey(Base64.encode64("#{promotion.id}/#{sent_promo.id}"))
         cama_send_email(item.email, promotion.subject, {
             from: promotion.email_from,
             cc_to: promotion.email_cc.split(","),

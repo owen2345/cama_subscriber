@@ -32,4 +32,19 @@ module Plugins::CamaSubscriber::MainHelper
     items << {icon: "gear", title: t('plugins.cama_subscriber.settings', default: 'Settings'), url: admin_plugins_cama_subscriber_settings_url}
     admin_menu_insert_menu_before('settings', 'plugin_subscriber', {icon: "envelope-o", title: t('plugins.cama_subscriber.title', default: 'Subscriptions'), url: '', items: items})
   end
+
+
+  def _signWithKey(item)
+    secret = Rails.application.secrets.secret_key_base || 'changeit'
+    item.to_s + "|" + Digest::SHA256.base64digest(secret + item.to_s)
+  end
+
+  def _verifyWithKey(arg)
+    secret = Rails.application.secrets.secret_key_base || 'changeit'
+    item,hash = arg.split('|')
+    if hash != Digest::SHA256.base64digest(secret + item)
+      return
+    end
+    item
+  end
 end
