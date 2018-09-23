@@ -6,7 +6,7 @@
         <div class="panel-body">
             <%= fields_for :settings, OpenStruct.new(@plugin.options) do |f2| %>
                 <div class="form-group">
-                    <label><%= t('.needs_confirmation', default: 'Email subscription needs conrfirmation?') %></label><br>
+                    <label><%= t('.needs_confirmation', default: 'Email subscription needs confirmation?') %></label><br>
                     <%= f2.check_box :needs_confirmation  %>
                 </div>
                 <div class="form-group">
