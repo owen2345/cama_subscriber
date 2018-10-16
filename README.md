@@ -7,8 +7,9 @@ This is a plugin for Camaleon CMS that manage subscriptions, newsletters.
 ```
 gem 'cama_subscriber', github: 'owen2345/cama_subscriber'
 ```
-- Console
+- Run migrations
 ```
+rake camaleon_cms:generate_migrations
 rake db:migrate
 ```
 - Navigate to admin -> plugins and install plugin "Cama Subscriber"
