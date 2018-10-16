@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Owen Peredo"]
   s.email       = ["owenperedo@gmail.com"]
   s.homepage    = ""
-  s.summary     = ": Summary of CamaSubscriber."
-  s.description = ": Description of CamaSubscriber."
+  s.summary     = "A plugin to manage email subscriptions and newsletters."
+  s.description = s.summary
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
