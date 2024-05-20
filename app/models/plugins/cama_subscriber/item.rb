@@ -1,7 +1,7 @@
 class Plugins::CamaSubscriber::Item < ActiveRecord::Base
   STATUS = ['approved', 'pending', 'unsubscribed']
   include CamaleonCms::Metas
-  belongs_to :site, class_name: "CamleonCms::Site", foreign_key: :site_id
+  belongs_to :site, class_name: "CamaleonCms::Site", foreign_key: :site_id
   has_many :item_groups, class_name: 'Plugins::CamaSubscriber::GroupItem'
   has_many :groups, class_name: 'Plugins::CamaSubscriber::Group', through: :item_groups
   before_save :check_unsubscribed_status
